@@ -107,7 +107,7 @@ const AdminDashboard = (currentUser) => {
             <button
               onClick={handleDeleteUser}
               disabled={DeleteLoading}
-              className="w-fit px-4 py-2 flex items-center justify-center gap-2 rounded-xl bg-red-500 text-white font-semibold py-3 text-sm shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-150 cursor-pointer"
+              className="px-4  flex items-center justify-center gap-2 rounded-xl bg-red-500 text-white font-semibold py-3 text-sm shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-150 cursor-pointer"
             >
               {DeleteLoading ? (
                 "Deleting User..."
