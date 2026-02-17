@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CheckSquare, ArrowLeft, Users, Check, X } from "lucide-react";
+import { CheckSquare, ArrowLeft, Users, Check, X, Trash2 } from "lucide-react";
 import axios from "axios";
 
 const AdminDashboard = (currentUser) => {
