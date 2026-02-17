@@ -8,6 +8,7 @@ const AdminDashboard = (currentUser) => {
   const [selectedUser, setSelectedUser] = useState(null);
   // const [userTasks, setUserTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [DeleteLoading, setDeleteLoading] = useState(false);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -45,6 +46,28 @@ const AdminDashboard = (currentUser) => {
     setSelectedUser(profile);
   };
 
+  const handleDeleteUser = async () => {
+    if (!selectedUser) return;
+    setDeleteLoading(true);
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(
+        `https://backend-assignment-1-e7a1.onrender.com/api/users/admin/delete/${selectedUser._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      await fetchUsers();
+      setSelectedUser(null);
+      setDeleteLoading(false);
+    } catch (error) {
+      console.log(error);
+      setDeleteLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
@@ -79,6 +102,22 @@ const AdminDashboard = (currentUser) => {
           </div>
           <div className="mt-4 text-sm text-gray-500">
             Joined {new Date(selectedUser.createdAt).toLocaleDateString()}
+          </div>
+          <div className="flex items-center gap-2 mt-4">
+            <button
+              onClick={handleDeleteUser}
+              disabled={DeleteLoading}
+              className="w-full rounded-xl bg-red-500 text-white font-semibold py-3 text-sm shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-150 cursor-pointer"
+            >
+              {DeleteLoading ? (
+                "Deleting User..."
+              ) : (
+                <span>
+                  {" "}
+                  <Trash2 className="h-4 w-4" /> Delete User{" "}
+                </span>
+              )}
+            </button>
           </div>
         </div>
 
