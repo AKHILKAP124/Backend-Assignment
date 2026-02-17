@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CheckSquare, ArrowLeft, Users, Check, X, Trash2 } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const AdminDashboard = (currentUser) => {
   const [users, setUsers] = useState([]);
@@ -59,10 +60,12 @@ const AdminDashboard = (currentUser) => {
           },
         },
       );
+      toast.success("User deleted successfully");
       await fetchUsers();
       setSelectedUser(null);
       setDeleteLoading(false);
     } catch (error) {
+      toast.error("Failed to delete user");
       console.log(error);
       setDeleteLoading(false);
     }
