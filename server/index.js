@@ -43,3 +43,7 @@ app.use("/api/tasks", TaskRouter);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+app.use("/", (req, res) => {
+  res.send("Welcome to the Task Management API");
+});
