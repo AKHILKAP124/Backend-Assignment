@@ -14,7 +14,7 @@ const Dashboard = () => {
     const token = localStorage.getItem("token");
     if (token) {
       await axios
-        .get("http://localhost:5000/api/users/me", {
+        .get("https://backend-assignment-1-e7a1.onrender.com/api/users/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +34,6 @@ const Dashboard = () => {
   useEffect(() => {
     getMe();
   }, []);
-
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -76,7 +75,11 @@ const Dashboard = () => {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-        {user?.role === "admin" ? <AdminDashboard /> : <UserDashboard user={user} />}
+        {user?.role === "admin" ? (
+          <AdminDashboard />
+        ) : (
+          <UserDashboard user={user} />
+        )}
       </main>
     </div>
   );

@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000/api",
+        url: "https://backend-assignment-1-e7a1.onrender.com/api",
       },
     ],
     components: {

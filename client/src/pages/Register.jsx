@@ -7,7 +7,12 @@ import toast from "react-hot-toast";
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({name : "", email: "", password: "", confirm: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirm: "",
+  });
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -30,25 +35,31 @@ const Register = () => {
       return;
     }
 
-    await axios.post("http://localhost:5000/api/users/register", {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-    }).then((res) => {
-      if (res.data.success) {
-        toast.success("Registration successful! Please log in.");
+    await axios
+      .post(
+        "https://backend-assignment-1-e7a1.onrender.com/api/users/register",
+        {
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        },
+      )
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Registration successful! Please log in.");
+          setLoading(false);
+          navigate("/login");
+        } else {
+          toast.error(res.data.message || "Registration failed.");
+          setError(res.data.message || "Registration failed.");
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message || "Registration failed.");
+        setError(error.response.data.message);
         setLoading(false);
-        navigate("/login");
-      } else {
-        toast.error(res.data.message || "Registration failed.");
-        setError(res.data.message || "Registration failed.");
-        setLoading(false);
-      }
-    }).catch((error) => {
-      toast.error(error.response.data.message || "Registration failed.");
-      setError(error.response.data.message);
-      setLoading(false);
-    });
+      });
   };
 
   return (

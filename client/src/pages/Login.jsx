@@ -21,7 +21,10 @@ const Login = () => {
     }
 
     await axios
-      .post("http://localhost:5000/api/users/login", form)
+      .post(
+        "https://backend-assignment-1-e7a1.onrender.com/api/users/login",
+        form,
+      )
       .then((res) => {
         if (res.data.success) {
           toast.success(res.data.message || "Login successful!");
@@ -39,7 +42,6 @@ const Login = () => {
         setError(error.response.data.message || "Login failed.");
         setLoading(false);
       });
-    
   };
 
   return (

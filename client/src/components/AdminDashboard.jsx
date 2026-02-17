@@ -14,11 +14,14 @@ const AdminDashboard = (currentUser) => {
     try {
       const token = localStorage.getItem("token");
       await axios
-        .get("http://localhost:5000/api/users/admin/all", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        .get(
+          "https://backend-assignment-1-e7a1.onrender.com/api/users/admin/all",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        })
+        )
         .then((res) => {
           console.log(res.data);
           const filtered = res.data.filter((u) => u.role !== "admin");
@@ -38,7 +41,6 @@ const AdminDashboard = (currentUser) => {
     fetchData();
   }, []);
 
-
   const handleSelectUser = (profile) => {
     setSelectedUser(profile);
   };
@@ -52,7 +54,8 @@ const AdminDashboard = (currentUser) => {
   }
 
   if (selectedUser) {
-    const completedCount = selectedUser.tasks?.filter((t) => t.status === "completed").length || 0;
+    const completedCount =
+      selectedUser.tasks?.filter((t) => t.status === "completed").length || 0;
     return (
       <div>
         <button
@@ -71,9 +74,7 @@ const AdminDashboard = (currentUser) => {
               <h2 className="text-lg font-semibold text-gray-900">
                 {selectedUser.name || "No Name"}
               </h2>
-              <p className="text-sm text-gray-500">
-                {selectedUser.email}
-              </p>
+              <p className="text-sm text-gray-500">{selectedUser.email}</p>
             </div>
           </div>
           <div className="mt-4 text-sm text-gray-500">
@@ -142,9 +143,7 @@ const AdminDashboard = (currentUser) => {
           <Users className="h-5 w-5 text-purple-500" />
           <h1 className="text-2xl font-bold text-gray-900">All Users</h1>
         </div>
-        <p className="text-sm text-gray-500">
-          {users.length} registered users
-        </p>
+        <p className="text-sm text-gray-500">{users.length} registered users</p>
       </div>
 
       <div className="space-y-3">
@@ -161,9 +160,7 @@ const AdminDashboard = (currentUser) => {
               <p className="text-sm font-medium text-gray-900 truncate">
                 {profile.name || "No Name"}
               </p>
-              <p className="text-xs text-gray-500 truncate">
-                {profile.email}
-              </p>
+              <p className="text-xs text-gray-500 truncate">{profile.email}</p>
             </div>
             <span className="text-xs text-gray-500">
               {new Date(profile.createdAt).toLocaleDateString()}
@@ -176,4 +173,3 @@ const AdminDashboard = (currentUser) => {
 };
 
 export default AdminDashboard;
-
