@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { setupSwagger } from "./src/config/swagger.js";
 
 // Load environment variables
 dotenv.config();
@@ -9,6 +10,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Setup Swagger
+setupSwagger(app);
 
 // Connect to MongoDB
 import connectDB from "./src/config/database.js";
